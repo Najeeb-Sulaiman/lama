@@ -1,0 +1,15 @@
+<!-- metrics/templates/metrics/physical_metrics_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collect Physical Metrics</title>
+</head>
+<body>
+    <h1>Collect Physical Metrics</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
