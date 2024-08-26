@@ -11,7 +11,7 @@ class PositionAdmin(admin.ModelAdmin):
 admin.site.register(Position, PositionAdmin)
 
 class Playerdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'position', 'team')
+    list_display = ('id', 'name', 'position')
 admin.site.register(Player, Playerdmin)
 
 class CompetitionAdmin(admin.ModelAdmin):
@@ -19,7 +19,7 @@ class CompetitionAdmin(admin.ModelAdmin):
 admin.site.register(Competition, CompetitionAdmin)
 
 class MatchAdmin(admin.ModelAdmin):
-    list_display = ('id', 'date', 'opponent')
+    list_display = ('id', 'date', 'competition', 'opponent', 'home_or_away')
 admin.site.register(Match, MatchAdmin)
 
 class PhysicalMetricAdmin(admin.ModelAdmin):
@@ -27,11 +27,11 @@ class PhysicalMetricAdmin(admin.ModelAdmin):
 admin.site.register(PhysicalMetric, PhysicalMetricAdmin)
 
 class TechnicalMetricAdmin(admin.ModelAdmin):
-    list_display = ('id', 'player', 'match', 'passing_accuracy','shots_on_target','dribbles_completed','touches')
+    list_display = ('id', 'player', 'match', 'shots_on_target','goals_scored','goal_assist', 'shots_taken','conner_kicks_played','conner_kicks_converted','free_kicks_played','free_kicks_converted', 'fouls_commited', 'yellow_card','red_card')
 admin.site.register(TechnicalMetric, TechnicalMetricAdmin)
 
 class TacticalMetricAdmin(admin.ModelAdmin):
-    list_display = ('id', 'player', 'match', 'positioning','defensive_actions','offensive_actions','duels_won')
+    list_display = ('id', 'player', 'match', 'positioning', 'passing_accuracy', 'dribbles_completed', 'touches', 'defensive_actions','offensive_actions','duels_won', 'interceptions', 'clearances')
 admin.site.register(TacticalMetric, TacticalMetricAdmin)
 
 class PhysiologicalMetricAdmin(admin.ModelAdmin):
@@ -39,7 +39,7 @@ class PhysiologicalMetricAdmin(admin.ModelAdmin):
 admin.site.register(PhysiologicalMetric, PhysiologicalMetricAdmin)
 
 class TeamMetricAdmin(admin.ModelAdmin):
-    list_display = ('id', 'team', 'match', 'possession_percentage','goals_scored','expected_goals','shots_taken','chances_created','goals_conceded','expected_goals_against','tackles','interceptions','clearances')
+    list_display = ('id', 'team', 'match', 'possession_percentage','goals_scored','expected_goals', 'goal_assist', 'shots_taken', 'shots_on_target','chances_created', 'conner_kicks_played', 'conner_kicks_converted', 'free_kicks_played', 'free_kicks_converted','goals_conceded','expected_goals_against','tackles_won', 'fouls_commited', 'yellow_card', 'red_card','interceptions','clearances')
 admin.site.register(TeamMetric, TeamMetricAdmin)
 
 class PlayerImpactMetricAdmin(admin.ModelAdmin):
@@ -54,3 +54,7 @@ class PsychologicalMetricAdmin(admin.ModelAdmin):
     list_display = ('id', 'player', 'match', 'stress_levels','focus_and_concentration')
 admin.site.register(PsychologicalMetric, PsychologicalMetricAdmin)
 #admin.site.register([Team,Player,Match,PhysicalMetric,TechnicalMetric,TacticalMetric,PhysiologicalMetric,TeamMetric,PlayerImpactMetric,TeamCohesionMetric,PsychologicalMetric], TeamAdmin)
+
+class TeamListAdmin(admin.ModelAdmin):
+    list_display = ('id', 'match', 'player', 'start_or_sub','minutes_played', 'position_played')
+admin.site.register(TeamList, TeamListAdmin)

@@ -63,3 +63,7 @@ class TeamCohesionMetricViewSet(viewsets.ModelViewSet):
 class PsychologicalMetricViewSet(viewsets.ModelViewSet):
     queryset = PsychologicalMetric.objects.all()
     serializer_class = PsychologicalMetricSerializer
+
+class TeamListViewSet(viewsets.ModelViewSet):
+    queryset = TeamList.objects.all()
+    serializer_class = TeamListSerializer

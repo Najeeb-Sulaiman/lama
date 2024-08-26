@@ -56,3 +56,8 @@ class PsychologicalMetricSerializer(serializers.ModelSerializer):
     class Meta:
         model = PsychologicalMetric
         fields = '__all__'
+
+class TeamListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeamList
+        fields = '__all__'

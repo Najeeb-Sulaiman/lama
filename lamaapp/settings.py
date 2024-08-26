@@ -78,14 +78,26 @@ WSGI_APPLICATION = 'lamaapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'lamaapp',
+#         'USER': 'postgres',
+#         'PASSWORD': 'sqluser10$',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+#railway connection
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lamaapp',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'sqluser10$',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'PASSWORD': 'qlGGakHvqaZhBoyMMOKBzymEaobmEAtL',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '33746',
     }
 }
 

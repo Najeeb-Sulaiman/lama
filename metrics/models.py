@@ -3,6 +3,7 @@ from django.db import models
 
 class Competition(models.Model):
     name = models.CharField(max_length=100)
+    #season = models.CharField(max_length=100)
     def __str__(self):
         return f"{self.name}"
 
@@ -19,7 +20,7 @@ class Position(models.Model):
 class Player(models.Model):
     name = models.CharField(max_length=100)
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    #team = models.ForeignKey(Team, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.name}"
     
@@ -31,6 +32,7 @@ class Match(models.Model):
         Neutral = 'Neutral', ('Neutral')
 
     date = models.DateField()
+    game_week = models.IntegerField()
     competition = models.ForeignKey(Competition, default=1, on_delete=models.CASCADE)
     opponent = models.ForeignKey(Team, on_delete=models.CASCADE)
     home_or_away = models.CharField(max_length=100, choices=HomeOrAway.choices, default='Home')
@@ -49,18 +51,30 @@ class PhysicalMetric(models.Model):
 class TechnicalMetric(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
-    passing_accuracy = models.FloatField()
     shots_on_target = models.IntegerField()
-    dribbles_completed = models.IntegerField()
-    touches = models.IntegerField()
-
+    goals_scored = models.IntegerField()
+    goal_assist = models.FloatField()
+    shots_taken = models.IntegerField()
+    conner_kicks_played = models.IntegerField()
+    conner_kicks_converted = models.IntegerField()
+    free_kicks_played = models.IntegerField()
+    free_kicks_converted = models.IntegerField()
+    fouls_commited = models.IntegerField()
+    yellow_card = models.IntegerField()
+    red_card = models.IntegerField()
+    
 class TacticalMetric(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     positioning = models.TextField()
+    passing_accuracy = models.FloatField()
+    dribbles_completed = models.IntegerField()
+    touches = models.IntegerField()
     defensive_actions = models.IntegerField()
     offensive_actions = models.IntegerField()
     duels_won = models.IntegerField()
+    interceptions = models.IntegerField()
+    clearances = models.IntegerField()
 
 class PhysiologicalMetric(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
@@ -72,14 +86,27 @@ class PhysiologicalMetric(models.Model):
 class TeamMetric(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    game_week = models.IntegerField()
     possession_percentage = models.FloatField()
     goals_scored = models.IntegerField()
     expected_goals = models.FloatField()
+    goal_assist = models.FloatField()
     shots_taken = models.IntegerField()
+    shots_on_target = models.IntegerField()
     chances_created = models.IntegerField()
+    conner_kicks_played = models.IntegerField()
+    conner_kicks_converted = models.IntegerField()
+    free_kicks_played = models.IntegerField()
+    free_kicks_converted = models.IntegerField()
+    penalty_played = models.IntegerField()
+    penalty_converted = models.IntegerField()
+    offside = models.IntegerField()
     goals_conceded = models.IntegerField()
     expected_goals_against = models.FloatField()
-    tackles = models.IntegerField()
+    tackles_won = models.IntegerField()
+    fouls_commited = models.IntegerField()
+    yellow_card = models.IntegerField()
+    red_card =models.IntegerField()
     interceptions = models.IntegerField()
     clearances = models.IntegerField()
 
@@ -100,3 +127,13 @@ class PsychologicalMetric(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     stress_levels = models.FloatField()
     focus_and_concentration = models.FloatField()
+
+class TeamList(models.Model):
+    class StartOrSub(models.TextChoices):
+        Home = 'Start', ('Start')
+        Away = 'Sub', ('Sub')
+    match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    start_or_sub = models.CharField(max_length=100, choices=StartOrSub.choices, default='Start')
+    minutes_played = models.IntegerField()
+    position_played = models.ForeignKey(Position, on_delete=models.CASCADE)
