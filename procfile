@@ -1,1 +1,1 @@
-web: gunicorn lamaapp.wsg
+web: gunicorn lamaapp.wsgi
