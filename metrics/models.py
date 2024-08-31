@@ -3,7 +3,8 @@ from django.db import models
 
 class Competition(models.Model):
     name = models.CharField(max_length=100)
-    #season = models.CharField(max_length=100) 
+    season = models.CharField(max_length=100)
+    #game_week = models.IntegerField(unique=True)
     def __str__(self):
         return f"{self.name}"
 
@@ -30,9 +31,11 @@ class Match(models.Model):
         Home = 'Home', ('Home')
         Away = 'Away', ('Away')
         Neutral = 'Neutral', ('Neutral')
-
+    class Season(models.TextChoices):
+        Year1 = '2024/2025', ('2024/2025')
+    season = models.CharField(max_length=100, choices=Season.choices, default='2024/2025')  #models.ForeignKey(Competition, to_field='season', on_delete=models.CASCADE, related_name="+")
     date = models.DateField()
-    game_week = models.IntegerField()
+    game_week = models.IntegerField() #models.ForeignKey(Competition, to_field='game_week', on_delete=models.CASCADE, related_name="+")
     competition = models.ForeignKey(Competition, default=1, on_delete=models.CASCADE)
     opponent = models.ForeignKey(Team, on_delete=models.CASCADE)
     home_or_away = models.CharField(max_length=100, choices=HomeOrAway.choices, default='Home')
@@ -53,7 +56,7 @@ class TechnicalMetric(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     shots_on_target = models.IntegerField()
     goals_scored = models.IntegerField()
-    goal_assist = models.FloatField()
+    goal_assist = models.IntegerField()
     shots_taken = models.IntegerField()
     conner_kicks_played = models.IntegerField()
     conner_kicks_converted = models.IntegerField()
@@ -130,9 +133,13 @@ class PsychologicalMetric(models.Model):
 
 class TeamList(models.Model):
     class StartOrSub(models.TextChoices):
-        Home = 'Start', ('Start')
-        Away = 'Sub', ('Sub')
+        Start = 'Start', ('Start')
+        Sun = 'Sub', ('Sub')
+    class Season(models.TextChoices):
+        Year1 = '2024/2025', ('2024/2025')
+    season = models.CharField(max_length=100, choices=Season.choices, default='2024/2025') #ForeignKey(Competition, to_field='season', on_delete=models.CASCADE,related_name="+")
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
+    game_week = models.IntegerField()
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     start_or_sub = models.CharField(max_length=100, choices=StartOrSub.choices, default='Start')
     minutes_played = models.IntegerField()
