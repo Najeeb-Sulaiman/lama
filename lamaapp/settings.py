@@ -29,9 +29,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','.vercel.app','lama-app.up.railway.app','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','.vercel.app','lama.up.railway.app','127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://lama-app.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://lama.up.railway.app']
 ###
 
 # Application definition
