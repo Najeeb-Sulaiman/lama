@@ -2,6 +2,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from .views import *
+from django.contrib import admin
 
 router = DefaultRouter()
 router.register(r'teams', TeamViewSet)
@@ -15,8 +16,9 @@ router.register(r'team-metrics', TeamMetricViewSet)
 router.register(r'player-impact-metrics', PlayerImpactMetricViewSet)
 router.register(r'team-cohesion-metrics', TeamCohesionMetricViewSet)
 router.register(r'psychological-metrics', PsychologicalMetricViewSet)
+router.register(r'team-list', TeamListViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('', collect_physical_metrics, name='collect_physical_metrics'),
+    path('',admin.site.urls, name='admin'),
 ]
